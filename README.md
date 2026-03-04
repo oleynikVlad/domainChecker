@@ -14,13 +14,13 @@ Domain Checker --- це веб-додаток для автоматичного 
 ## 🧱 Технологічний стек
 
 -   Backend: Laravel 12+
--   Адмін-панель: Filament 3+
--   База даних: MySQL 8+ / PostgreSQL 14+
+-   Адмін-панель: Filament 5+
+-   База даних: MySQL 8+
 -   Frontend: Blade (Laravel Views)
 -   Контейнеризація: Laravel Sail (Docker)
 -   Черги: Laravel Queue
 -   Планувальник задач: Laravel Scheduler
--   Контроль версій: Git (GitHub / GitLab)
+-   Контроль версій: Git (GitHub)
 
 ------------------------------------------------------------------------
 
@@ -74,6 +74,7 @@ Domain Checker --- це веб-додаток для автоматичного 
 -   HTTP-код відповіді
 -   Час відповіді (мс)
 -   Повідомлення про помилку (за наявності)
+-   Дебаг данні
 
 ------------------------------------------------------------------------
 
@@ -105,9 +106,8 @@ Domain Checker --- це веб-додаток для автоматичного 
 
 -   CRUD доменів
 -   Перегляд історії перевірок
--   Фільтрація за статусом
 -   Пошук по доменах
--   Управління користувачами (для адміністратора)
+-   Управління користувачами (для адміністратора запит у розробника)
 
 ------------------------------------------------------------------------
 
@@ -134,7 +134,7 @@ Domain Checker --- це веб-додаток для автоматичного 
     DB_CONNECTION=mysql
     DB_HOST=mysql
     DB_PORT=3306
-    DB_DATABASE=domain_checker
+    DB_DATABASE=domainchecker
     DB_USERNAME=sail
     DB_PASSWORD=password
 
@@ -152,7 +152,7 @@ Domain Checker --- це веб-додаток для автоматичного 
 
 ------------------------------------------------------------------------
 
-### 6️⃣ Створення адміністратора
+### 6️⃣ Створення адміністратора (для супер адмінка треба в бд змінити флаг)
 
     ./vendor/bin/sail artisan make:filament-user
 
@@ -160,10 +160,10 @@ Domain Checker --- це веб-додаток для автоматичного 
 
 ## ⏰ Налаштування автоматичних перевірок
 
-У app/Console/Kernel.php:
+У routes/console.php:
 
 ``` php
-$schedule->command('domains:check')->everyMinute();
+Schedule::command('domains:check')->cron("*/{$checkInterval} * * * *")
 ```
 
 Запуск планувальника:
@@ -173,31 +173,6 @@ $schedule->command('domains:check')->everyMinute();
 або через cron:
 
     * * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1
-
-------------------------------------------------------------------------
-
-## 📦 Структура бази даних
-
-### domains
-
--   id
--   user_id
--   url
--   check_interval
--   timeout
--   method (GET/HEAD)
--   created_at
--   updated_at
-
-### domain_checks
-
--   id
--   domain_id
--   status
--   http_code
--   response_time
--   error_message
--   checked_at
 
 ------------------------------------------------------------------------
 ## 📜 Ліцензія

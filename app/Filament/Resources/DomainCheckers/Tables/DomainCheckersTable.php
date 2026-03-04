@@ -15,7 +15,6 @@ class DomainCheckersTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('ID'),
                 TextColumn::make('domain.title')->label('Domain name'),
                 TextColumn::make('http_code')->label('HTTP status code'),
                 TextColumn::make('response_time')->label('Response time (ms)'),
@@ -26,6 +25,7 @@ class DomainCheckersTable
             ])
             ->recordActions([
                 ViewAction::make(),
-            ]);
+            ])
+            ->defaultSort('created_at', 'DESC');
     }
 }

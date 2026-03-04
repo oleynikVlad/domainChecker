@@ -20,6 +20,9 @@ class DomainForm
                 TextInput::make('title')
                     ->required()
                     ->placeholder("Name of the domain"),
+                TextInput::make('timeout')
+                    ->required()
+                    ->placeholder("The timeout in seconds"),
                 Select::make('method')
                     ->options([
                         'GET' => 'GET',

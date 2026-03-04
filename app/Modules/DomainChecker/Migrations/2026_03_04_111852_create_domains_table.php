@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('url');
             $table->string('title');
+            $table->integer('timeout')->default(10); // seconds
             $table->enum('method', ['GET', 'HEAD'])->default('GET');
             $table->timestamps();
         });

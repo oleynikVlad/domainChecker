@@ -17,5 +17,4 @@ $checkInterval = Cache::rememberForever('check_interval', function () {
 
 Schedule::command('domains:check')
     ->cron("*/{$checkInterval} * * * *")
-    ->withoutOverlapping()
-    ->onOneServer();
+    ->withoutOverlapping();

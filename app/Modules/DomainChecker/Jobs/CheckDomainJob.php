@@ -21,13 +21,12 @@ class CheckDomainJob implements ShouldQueue
     {
         $start = microtime(true);
         try {
-            $response = Http::send($this->domain->method, $this->domain->url);
+            $response = Http::timeout($this->domain->timeout)->send($this->domain->method, $this->domain->url);
             $responseTime = (microtime(true) - $start) * 1000;
             $debugData = [
                 'request' => [
                     'url'    => $this->domain->url,
                     'method' => $this->domain->method,
-
                 ],
                 'response' => [
                     'status'  => $response->status(),
