@@ -1,59 +1,212 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📡 Domain Checker --- система моніторингу доступності доменів
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 📌 Опис проєкту
 
-## About Laravel
+Domain Checker --- це веб-додаток для автоматичного моніторингу
+доступності доменів з історією перевірок, логуванням результатів та
+адміністративною панеллю.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Проєкт реалізований на Laravel 12 з використанням Laravel Sail (Docker)
+та Filament для адміністративної частини.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+------------------------------------------------------------------------
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🧱 Технологічний стек
 
-## Learning Laravel
+-   Backend: Laravel 12+
+-   Адмін-панель: Filament 3+
+-   База даних: MySQL 8+ / PostgreSQL 14+
+-   Frontend: Blade (Laravel Views)
+-   Контейнеризація: Laravel Sail (Docker)
+-   Черги: Laravel Queue
+-   Планувальник задач: Laravel Scheduler
+-   Контроль версій: Git (GitHub / GitLab)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+------------------------------------------------------------------------
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Основний функціонал
 
-## Laravel Sponsors
+### 🔐 Авторизація
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   Реєстрація користувача
+-   Вхід / вихід
+-   Захист приватних сторінок (middleware auth)
+-   Відновлення пароля (немає)
 
-### Premium Partners
+------------------------------------------------------------------------
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🌐 Управління доменами
 
-## Contributing
+-   Додавання домену
+-   Редагування домену
+-   Видалення домену
+-   Перегляд списку доменів користувача
+-   Прив'язка домену до конкретного користувача
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+------------------------------------------------------------------------
 
-## Code of Conduct
+### ⚙ Налаштування перевірок
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Для кожного домену можна вказати:
 
-## Security Vulnerabilities
+-   Інтервал перевірки (1, 5, 10, 30 хвилин тощо)
+-   Таймаут запиту (в секундах)
+-   Метод перевірки:
+    -   HTTP GET
+    -   HTTP HEAD
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+------------------------------------------------------------------------
 
-## License
+### 🔄 Автоматичні перевірки
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   Перевірки запускаються автоматично через Laravel Scheduler
+-   Використовуються черги для асинхронної обробки
+-   Кожна перевірка зберігається в історії
+
+------------------------------------------------------------------------
+
+### 📊 Логи перевірок
+
+Для кожної перевірки зберігається:
+
+-   Дата та час перевірки
+-   Статус (доступний / недоступний)
+-   HTTP-код відповіді
+-   Час відповіді (мс)
+-   Повідомлення про помилку (за наявності)
+
+------------------------------------------------------------------------
+
+### 🔔 Повідомлення
+
+-   Email-сповіщення при недоступності домену
+-   Можливість інтеграції з Telegram / Slack
+
+------------------------------------------------------------------------
+
+## 🗂 Архітектура проєкту
+
+### Основні моделі
+
+-   User
+-   Domain
+-   DomainCheck
+
+### Зв'язки
+
+-   User → hasMany → Domain
+-   Domain → hasMany → DomainCheck
+
+------------------------------------------------------------------------
+
+## 🧩 Адміністративна панель (Filament)
+
+Функціонал адмін-панелі:
+
+-   CRUD доменів
+-   Перегляд історії перевірок
+-   Фільтрація за статусом
+-   Пошук по доменах
+-   Управління користувачами (для адміністратора)
+
+------------------------------------------------------------------------
+
+## 🐳 Розгортання через Laravel Sail
+
+### 1️⃣ Клонування репозиторію
+
+    git clone https://github.com/your-username/domain-checker.git
+    cd domain-checker
+
+------------------------------------------------------------------------
+
+### 2️⃣ Встановлення залежностей
+
+    composer install
+    cp .env.example .env
+
+------------------------------------------------------------------------
+
+### 3️⃣ Налаштування середовища
+
+У файлі .env:
+
+    DB_CONNECTION=mysql
+    DB_HOST=mysql
+    DB_PORT=3306
+    DB_DATABASE=domain_checker
+    DB_USERNAME=sail
+    DB_PASSWORD=password
+
+------------------------------------------------------------------------
+
+### 4️⃣ Запуск проєкту
+
+    ./vendor/bin/sail up -d
+
+------------------------------------------------------------------------
+
+### 5️⃣ Міграції
+
+    ./vendor/bin/sail artisan migrate
+
+------------------------------------------------------------------------
+
+### 6️⃣ Створення адміністратора
+
+    ./vendor/bin/sail artisan make:filament-user
+
+------------------------------------------------------------------------
+
+## ⏰ Налаштування автоматичних перевірок
+
+У app/Console/Kernel.php:
+
+``` php
+$schedule->command('domains:check')->everyMinute();
+```
+
+Запуск планувальника:
+
+    ./vendor/bin/sail artisan schedule:work
+
+або через cron:
+
+    * * * * * cd /var/www/html && php artisan schedule:run >> /dev/null 2>&1
+
+------------------------------------------------------------------------
+
+## 📦 Структура бази даних
+
+### domains
+
+-   id
+-   user_id
+-   url
+-   check_interval
+-   timeout
+-   method (GET/HEAD)
+-   created_at
+-   updated_at
+
+### domain_checks
+
+-   id
+-   domain_id
+-   status
+-   http_code
+-   response_time
+-   error_message
+-   checked_at
+
+------------------------------------------------------------------------
+## 📜 Ліцензія
+
+MIT
+
+------------------------------------------------------------------------
+
+## 👨‍💻 Автор
+
+Vlad O\
+GitHub: https://github.com/oleynikVlad
