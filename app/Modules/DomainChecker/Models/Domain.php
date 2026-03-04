@@ -14,8 +14,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $user_id
  * @property string $url
- * @property int $check_interval
- * @property int $timeout
+ * @property string $title
  * @property string $method
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -25,11 +24,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Domain newModelQuery()
  * @method static Builder<static>|Domain newQuery()
  * @method static Builder<static>|Domain query()
- * @method static Builder<static>|Domain whereCheckInterval($value)
  * @method static Builder<static>|Domain whereCreatedAt($value)
  * @method static Builder<static>|Domain whereId($value)
  * @method static Builder<static>|Domain whereMethod($value)
- * @method static Builder<static>|Domain whereTimeout($value)
+ * @method static Builder<static>|Domain whereTitle($value)
  * @method static Builder<static>|Domain whereUpdatedAt($value)
  * @method static Builder<static>|Domain whereUrl($value)
  * @method static Builder<static>|Domain whereUserId($value)

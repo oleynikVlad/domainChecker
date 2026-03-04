@@ -23,15 +23,32 @@ class CheckDomainJob implements ShouldQueue
         try {
             $response = Http::send($this->domain->method, $this->domain->url);
             $responseTime = (microtime(true) - $start) * 1000;
+            $debugData = [
+                'request' => [
+                    'url'    => $this->domain->url,
+                    'method' => $this->domain->method,
+
+                ],
+                'response' => [
+                    'status'  => $response->status(),
+                    'reason'  => $response->reason(),
+                    'headers' => $response->headers(),
+                ],
+                'info' => $response->handlerStats(),
+            ];
+
             DomainCheck::create([
                 'domain_id' => $this->domain->id,
-                'http_code' => $response->status(),
+                'http_code' => $response->getStatusCode(),
+                'result' => $debugData,
                 'response_time' => (int) $responseTime,
+                'body'  => $response->json() ?? $response->body(),
             ]);
         } catch (\Exception $e) {
             DomainCheck::create([
                 'domain_id' => $this->domain->id,
                 'error_message' => $e->getMessage(),
+                'http_code' => $e->getCode(),
             ]);
         }
     }

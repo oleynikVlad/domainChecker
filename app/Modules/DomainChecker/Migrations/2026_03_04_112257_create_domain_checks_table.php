@@ -12,6 +12,8 @@ return new class extends Migration {
             $table->foreignId('domain_id')->constrained()->cascadeOnDelete();
             //success or not
             $table->integer('http_code');
+            $table->json('result')->nullable();
+            $table->longText('body')->nullable();
             $table->integer('response_time')->nullable(); // ms
             $table->text('error_message')->nullable();
             $table->timestamps();

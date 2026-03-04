@@ -28,12 +28,6 @@ class DomainCheckerResource extends Resource
     {
         return DomainCheckerForm::configure($schema);
     }
-
-    public static function infolist(Schema $schema): Schema
-    {
-        return DomainCheckerInfolist::configure($schema);
-    }
-
     public static function table(Table $table): Table
     {
         return DomainCheckersTable::configure($table);

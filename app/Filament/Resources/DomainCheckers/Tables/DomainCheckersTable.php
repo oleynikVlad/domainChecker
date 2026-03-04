@@ -18,15 +18,14 @@ class DomainCheckersTable
                 TextColumn::make('id')->label('ID'),
                 TextColumn::make('domain.title')->label('Domain name'),
                 TextColumn::make('http_code')->label('HTTP status code'),
-                TextColumn::make('response_time')->label('Response time'),
+                TextColumn::make('response_time')->label('Response time (ms)'),
+                TextColumn::make('created_at')->label('Check date')->dateTime('Y-m-d h:m')
             ])
             ->filters([
                 //
             ])
             ->recordActions([
                 ViewAction::make(),
-            ])
-            ->toolbarActions([
             ]);
     }
 }

@@ -13,6 +13,7 @@ class ViewDomainChecker extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
+
         ];
     }
 }
