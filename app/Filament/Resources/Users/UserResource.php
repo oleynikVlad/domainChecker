@@ -70,28 +70,21 @@ class UserResource extends Resource
             ]);
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->where('is_super_admin', false);
-    }
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::query()->where('is_super_admin', false)->count();
-    }
-
     public static function getNavigationBadgeColor(): ?string
     {
         return 'info';
     }
-    public static function shouldRegisterNavigation(): bool
+    public static function canEdit($record): bool
     {
-        return auth()->user()?->is_super_admin === true;
+        return false;
     }
 
-    public static function canViewAny(): bool
+    public static function canDeleteAny(): bool
     {
-        return auth()->user()?->is_super_admin === true;
+        return false;
+    }
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }

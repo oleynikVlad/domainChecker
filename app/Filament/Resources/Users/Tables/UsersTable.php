@@ -35,25 +35,14 @@ class UsersTable
                     ->dateTime('Y-m-d h:m')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('last_login_at')
-                    ->dateTime('Y-m-d h:m')
-                    ->sortable(),
-                IconColumn::make('is_admin')
-                    ->boolean(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
             ])
             ->defaultSort('created_at', 'DESC');
     }

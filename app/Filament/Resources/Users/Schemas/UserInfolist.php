@@ -25,11 +25,6 @@ class UserInfolist
                 TextEntry::make('deleted_at')
                     ->dateTime('Y-m-d h:m')
                     ->visible(fn (User $record): bool => $record->trashed()),
-                TextEntry::make('last_login_at')
-                    ->dateTime('Y-m-d h:m')
-                    ->placeholder('-'),
-                IconEntry::make('is_admin')
-                    ->boolean(),
             ]);
     }
 }
